@@ -1,5 +1,5 @@
 /* eslint-disable testing-library/no-unnecessary-act */
-import { act, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -91,6 +91,7 @@ jest.mock('axios', () => {
           repoData,
           {
             ...repoData,
+            name: 'john',
             id: 2,
           },
         ],
@@ -139,6 +140,49 @@ describe('<HomePage />', () => {
         </BrowserRouter>,
       ),
     );
+    const repositoryElement = screen.getByTestId(`repository-${repoData.id}`);
+    expect(repositoryElement).toBeInTheDocument();
+  });
+
+  it('should trigger search on input change', async () => {
+    await act(async () =>
+      render(
+        <BrowserRouter>
+          <HomePage />
+        </BrowserRouter>,
+      ),
+    );
+
+    const searchInput = screen.getByTestId('search') as HTMLInputElement;
+    expect(searchInput).toBeInTheDocument();
+    expect(searchInput.value).toBe('');
+
+    fireEvent.change(searchInput, {
+      target: { value: 'Test' },
+    });
+
+    expect(searchInput.value).toBe('Test');
+  });
+
+  it('should show searched repositories when the search term matches a repository that exists', async () => {
+    await act(async () =>
+      render(
+        <BrowserRouter>
+          <HomePage />
+        </BrowserRouter>,
+      ),
+    );
+
+    const searchInput = screen.getByTestId('search') as HTMLInputElement;
+    expect(searchInput).toBeInTheDocument();
+    expect(searchInput.value).toBe('');
+
+    fireEvent.change(searchInput, {
+      target: { value: repoData.name },
+    });
+
+    expect(searchInput.value).toBe(repoData.name);
+
     const repositoryElement = screen.getByTestId(`repository-${repoData.id}`);
     expect(repositoryElement).toBeInTheDocument();
   });

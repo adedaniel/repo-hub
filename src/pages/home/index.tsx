@@ -22,7 +22,7 @@ const HomePage: React.FC<Props> = () => {
 
   const handleFilter = useCallback(() => {
     const filtered = data.filter((repository: any) =>
-      repository?.name?.includes(search),
+      repository?.name?.toLowerCase().includes(search.toLowerCase()),
     );
 
     if (filtered) {
@@ -40,8 +40,10 @@ const HomePage: React.FC<Props> = () => {
   const handlePageChange = (page: number) => {
     setIsRefetching(true);
     setCurrentPage(page);
-    const startSliceAt = page * PAGE_LIMIT;
-    const endSliceAt = (page + 1) * PAGE_LIMIT;
+
+    const startSliceAt = (page - 1) * PAGE_LIMIT;
+    const endSliceAt = page * PAGE_LIMIT;
+
     setRepositories(data.slice(startSliceAt, endSliceAt));
     setIsRefetching(false);
   };
