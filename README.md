@@ -2,6 +2,18 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# Project Setup
+
+- Clone the repository and run `yarn install` to install the node_modules
+- Create a `.env` file by running `cp .env.example .env` and replace the `XXX` value with actual values. If you are on windows you can manually create a `.env` file in the room directory and copy the content of thr `.env.example` to the `.env` file and replace the `xxx` values
+- Run `yarn start`
+- The project should start
+
+## Running tests
+
+- Follow the The first steps in Project setup
+- For tests, run `yarn test`
+
 ## Available Scripts
 
 In the project directory, you can run:
