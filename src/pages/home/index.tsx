@@ -97,11 +97,26 @@ const HomePage: React.FC<Props> = () => {
         </Grid>
       </Grid>
       <Grid container>
-        {repositories.map((repository) => (
-          <Repository key={repository.id} repository={repository} />
-        ))}
+        {repositories?.length ? (
+          repositories.map((repository) => (
+            <Repository key={repository.id} repository={repository} />
+          ))
+        ) : (
+          <Grid item>
+            <x.div
+              minH='20rem'
+              display='flex'
+              alignItems='center'
+              justifyContent='center'
+              fontSize='1.2rem'
+              fontWeight='500'
+            >
+              No repositories found!
+            </x.div>
+          </Grid>
+        )}
       </Grid>
-      {pageCount && currentPage ? (
+      {repositories?.length && pageCount && currentPage ? (
         <x.div
           display='flex'
           alignItems='center'
