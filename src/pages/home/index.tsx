@@ -96,7 +96,7 @@ const HomePage: React.FC<Props> = () => {
       </Grid>
       <Grid container>
         {repositories.map((repository) => (
-          <Repository repository={repository} />
+          <Repository key={repository.id} repository={repository} />
         ))}
       </Grid>
       {pageCount && currentPage ? (
@@ -128,7 +128,6 @@ const Repository: React.FC<{ repository: Record<string, any> }> = ({
       sm={4}
       md={3}
       spacing='0.5rem'
-      key={repository.id}
       data-testid={`repository-${repository.id}`}
     >
       <x.div>

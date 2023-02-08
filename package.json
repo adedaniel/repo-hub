@@ -24,6 +24,14 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1",
+      "setupFilesAfterEnv": [
+        "@testing-library/react/cleanup-after-each"
+      ]
+    }
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
